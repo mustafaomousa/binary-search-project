@@ -3,9 +3,8 @@ While you are working on the following problems, it DEFINITELY HELPS to
 visualize these things in action, so use the below arrays as example inputs.
 
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+[1, 2, 3, 4, |||| <5, 6, 7, <8>, 9, 10>]
 *******************************************************************/
-
 
 /*******************************************************************
 BINARY SEARCH VERSION 1:
@@ -23,7 +22,7 @@ const recurBSearch = (nums, targetNum) => {
   let slicePoint = Math.floor(nums.length / 2);
   let leftHalf = nums.slice(0, slicePoint);
   let rightHalf = nums.slice(slicePoint + 1);
-  let middleNumber = nums[slicePoint]
+  let middleNumber = nums[slicePoint];
   // console.log(slicePoint)
   // console.log(leftHalf)
   // console.log(rightHalf)
@@ -46,9 +45,9 @@ const recurBSearch = (nums, targetNum) => {
   // right half
 
   // if it's not greater than or less than, we know it's equal so return true
-}
+};
 
-recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 22);
+// recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 22);
 
 /*******************************************************************
 BINARY SEARCH VERSION 2:
@@ -60,26 +59,46 @@ targetNum is within the nums array.
 const iterBSearch = (nums, targetNum) => {
   // Save references to the beginning, middle, and end of the array into
   // variables: lowerIdx, midIdx, and upperIdx
-
+  let upperIdx = nums.length - 1;
+  let lowerIdx = 0;
+  let midIdx = Math.floor(nums.length / 2);
+  // console.log(upperIdx);
+  // console.log(lowerIdx);
+  // console.log(midIdx);
   // while the lowerIdx is less than or equal to the upperIdx, there are still
   // values to be searched
 
-  // reassign the midIdx to the the middle of the new lower and upper indices 
+  while (lowerIdx <= upperIdx) {
+    midIdx = Math.floor((lowerIdx + upperIdx) / 2);
+    let midVal = nums[midIdx];
+    if (targetNum > midVal) {
+      lowerIdx = midIdx + 1;
+    } else if (targetNum < midVal) {
+      upperIdx = midIdx - 1;
+    } else {
+      return true;
+    }
+  }
+  return false;
+  // reassign the midIdx to the the middle of the new lower and upper indices
+
+  //
 
   // if targetNum is larger than the value in the middle, we know targetNum is
   // not between the current lower and current middle, so raise the lowerIdx
   // value
 
   // if targetNum is less than the value in the middle, we know targetNum is not
-  // between the current upper and current middle, so lower the upperIdx 
+  // between the current upper and current middle, so lower the upperIdx
 
   // if it's not greater than or less than, we have found our target at the
   // midIdx and can return true and stop iterating.
 
   // if we finish iterating and haven't returned true, we've looked over the
-  // entire array and didn't find targetNum, so return false 
-}
+  // entire array and didn't find targetNum, so return false
+};
 
+iterBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5);
 
 /*******************************************************************
 BINARY SEARCH VERSION 3:
@@ -92,12 +111,10 @@ const recurBSearchIdx = (nums, targetNum) => {
   // this implementation is identical to version 1, except rather than
   // returning true/false, return the index where you found the item
   // (instead of true) or -1 (instead of false).
-
   // HINT: the index value you return should be the index in the ORIGINAL array
   // and not the index of the sliced array. Think about how you can calculate
   // this.
-}
-
+};
 
 /*******************************************************************
 BINARY SEARCH VERSION 4:
@@ -129,8 +146,7 @@ const recurBSearchIdxV2 = (nums, targetNum, low = null, hi = null) => {
 
   If neither of those is true, return the slice point
   */
-}
-
+};
 
 /*******************************************************************
 BINARY SEARCH VERSION 5:
@@ -142,12 +158,12 @@ it is in the nums array, and -1 if it is not found.
 const iterBSearchIdx = (nums, targetNum) => {
   // this is the exact same as Version 2, but return the index or -1 rather than
   // true or false
-}
+};
 
 module.exports = {
   recurBSearch,
   iterBSearch,
   recurBSearchIdx,
   recurBSearchIdxV2,
-  iterBSearchIdx
+  iterBSearchIdx,
 };
