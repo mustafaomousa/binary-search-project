@@ -17,7 +17,20 @@ targetNum is within the nums array.
 const recurBSearch = (nums, targetNum) => {
   // if nums has no length, return false because we've run out of items to
   // search and haven't found targetNum
-
+    if(nums.length === 0){
+      return false;
+    } else {
+      let slicePoint = Math.floor(nums.length/2);
+      let leftHalf = nums.slice(0, slicePoint-1);
+      let rightHalf = nums.slice(slicePoint);
+      if(targetNum < slicePoint){
+        return recurBSearch(leftHalf, targetNum);
+      } else if(targetNum > slicePoint){
+        return recurBSearch(rightHalf, targetNum);
+      } else {
+        return true;
+      }
+    }
   // determine the slice point
 
   // create "left half" and "right half" arrays
@@ -31,6 +44,7 @@ const recurBSearch = (nums, targetNum) => {
   // if it's not greater than or less than, we know it's equal so return true
 }
 
+recurBSearch([1,2,3,4,5,6,7,8,9,10], 5);
 
 /*******************************************************************
 BINARY SEARCH VERSION 2:
